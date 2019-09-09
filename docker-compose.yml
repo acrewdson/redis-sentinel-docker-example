@@ -2,57 +2,78 @@ version: '2.1'
 services:
 
   redis1:
-    image: redis:5.0.5-alpine
+    image: redis:5.0.5
     expose:
       - 6379
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - ./redis1.conf:/etc/redis.conf
+    command: redis-server /etc/redis.conf
     networks:
       foonet:
         ipv4_address: 172.22.1.10
 
   sentinel1:
-    image: redis:5.0.5-alpine
+    image: redis:5.0.5
     expose:
       - 26379
+    ports:
+      - "127.0.0.1:26379:26379"
     volumes:
-      - ./.sentinel1.conf:/etc/sentinel.conf
+      - ./sentinel1.conf:/etc/sentinel.conf
     command: redis-server /etc/sentinel.conf --sentinel
     networks:
       foonet:
         ipv4_address: 172.22.1.11
 
   redis2:
-    image: redis:5.0.5-alpine
+    image: redis:5.0.5
     expose:
-      - 6379
+      - 6380
+    volumes:
+      - ./redis2.conf:/etc/redis.conf
+    ports:
+      - "127.0.0.1:6380:6380"
+    command: redis-server /etc/redis.conf
     networks:
       foonet:
         ipv4_address: 172.22.1.20
 
   sentinel2:
-    image: redis:5.0.5-alpine
+    image: redis:5.0.5
     expose:
-      - 26379
+      - 26380
+    ports:
+      - "127.0.0.1:26380:26380"
     volumes:
-      - ./.sentinel2.conf:/etc/sentinel.conf
+      - ./sentinel2.conf:/etc/sentinel.conf
     command: redis-server /etc/sentinel.conf --sentinel
     networks:
       foonet:
         ipv4_address: 172.22.1.21
 
   redis3:
-    image: redis:5.0.5-alpine
+    image: redis:5.0.5
     expose:
-      - 6379
+      - 6381
+    volumes:
+      - ./redis3.conf:/etc/redis.conf
+    ports:
+      - "127.0.0.1:6381:6381"
+    command: redis-server /etc/redis.conf
     networks:
       foonet:
         ipv4_address: 172.22.1.30
 
   sentinel3:
-    image: redis:5.0.5-alpine
+    image: redis:5.0.5
     expose:
-      - 26379
+      - 26381
+    ports:
+      - "127.0.0.1:26381:26381"
     volumes:
-      - ./.sentinel3.conf:/etc/sentinel.conf
+      - ./sentinel3.conf:/etc/sentinel.conf
     command: redis-server /etc/sentinel.conf --sentinel
     networks:
       foonet:
