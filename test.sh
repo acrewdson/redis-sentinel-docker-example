@@ -58,7 +58,7 @@ echo
 # test suite 2
 
 ## stop master
-docker-compose stop $MASTER_NAME && sleep 20
+docker-compose stop $MASTER_NAME && sleep 40
 echo
 
 set_vars $(docker exec -t redis-sentinel-docker-example_${SLAVE2_NAME}_1 redis-cli -h 172.22.1.21 -p 26379 SENTINEL get-master-addr-by-name my_redis_master | cut -d\" -f2 | head -n1)
